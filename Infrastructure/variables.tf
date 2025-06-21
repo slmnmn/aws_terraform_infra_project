@@ -22,5 +22,9 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-
+variable "dynamo_name" {
+  description = "The name of the DynamoDB"
+  type = string
+  default = "DynamoTabla"
+}
 # USe the TF.vars for everything most importantly the name of the buckets (No default value)
