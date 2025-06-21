@@ -26,7 +26,7 @@ resource "aws_iam_policy" "s3_put_object_policy" {
   name        = "api-gateway-s3-put-object-policy"
   description = "Allows API Gateway to put objects into the S3 bucket."
 
-  # Referencia de manera dinamica el ARN del bucket.
+  # Dynamic reference.
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -64,4 +64,73 @@ data "aws_iam_policy_document" "s3_static_website_policy_access" {
 resource "aws_s3_bucket_policy" "s3_static_website_policy_access" {
   bucket = aws_s3_bucket.static_bucket.id
   policy = data.aws_iam_policy_document.s3_static_website_policy_access.json #Reminder to put .json as policy attachign
+}
+
+#Lambda role and policies (The policies AWS bring us, are costumer managed (microservices DYNAMO) so we need to create it )
+
+resource "aws_iam_role" "lambda_exec_role" {
+  name = "s3_upload_processor_lambda_role"
+
+  assume_role_policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Action    = "sts:AssumeRole",
+        Effect    = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+#Not necessary but to have access to console logs inside the Lambda ok
+resource "aws_iam_policy" "lambda_logging_policy" { 
+  name        = "s3_processor_lambda_logging_policy"
+  description = "Allows Lambda function to write logs to CloudWatch"
+
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Effect   = "Allow",
+        Resource = "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logs_attach" {
+  role       = aws_iam_role.lambda_exec_role.name
+  policy_arn = aws_iam_policy.lambda_logging_policy.arn
+}
+
+resource "aws_iam_policy" "s3_read_only_policy" {
+  name        = "s3_upload_bucket_read_only_policy"
+  description = "Allows Lambda to read objects from the S3 upload bucket"
+
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ],
+        Effect = "Allow",
+        Resource = "${aws_s3_bucket.upload_bucket.arn}/*" #
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "s3_read_attach" {
+  role       = aws_iam_role.lambda_exec_role.name
+  policy_arn = aws_iam_policy.s3_read_only_policy.arn
 }
