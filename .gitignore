@@ -1,0 +1,7 @@
+/Infrastructure/.terraform/
+/Infrastructure/.terraform.lock.hcl
+/Infrastructure/placeholder_lambda.zip
+/Infrastructure/terraform.tfstate
+/Infrastructure/terraform.tfstate.backup
+deploy.zip
+/Infrastructure/files/
