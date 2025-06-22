@@ -135,7 +135,6 @@ resource "aws_iam_role_policy_attachment" "s3_read_attach" {
   policy_arn = aws_iam_policy.s3_read_only_policy.arn
 }
 
-
 resource "aws_iam_policy" "dynamodb_read_write_policy" {
   name        = "lambda_dynamodb_read_write_policy"
   description = "Allows Lambda to read from and write to the DynamoDB table"
@@ -151,8 +150,13 @@ resource "aws_iam_policy" "dynamodb_read_write_policy" {
           "dynamodb:DeleteItem"
         ],
         Effect = "Allow",
-        Resource = aws_dynamodb_table.lambda_data_table.arn
+        Resource = "${aws_dynamodb_table.lambda_data_table.arn}"
       }
     ]
   })
+}
+
+resource "aws_iam_role_policy_attachment" "dynamodb_attach" {
+  role       = aws_iam_role.lambda_exec_role.name
+  policy_arn = aws_iam_policy.dynamodb_read_write_policy.arn
 }
