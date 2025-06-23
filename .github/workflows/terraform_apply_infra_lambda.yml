@@ -11,7 +11,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     defaults:
       run:
-        working-directory: src
+        working-directory: ./Infrastructure
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,11 +21,7 @@ jobs:
         with:
           terraform_version: 1.0.1
           terraform_wrapper: false
-
-      - name: Going to directory
-        id: go
-        run: cd ./Infrastructure
-
+          
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check
