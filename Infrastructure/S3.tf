@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "upload_bucket" { #REcuerde referenciar el otro bucket PARA LA OTRA APIGATEWAY
   bucket = var.bucket_name_upload
+  force_destroy = true    #This is only for demonstration this SHOULD NOT be here
   tags = {
     Terraform = "true"
     Project   = "APIGatewayS3"
@@ -16,7 +17,7 @@ resource "aws_s3_bucket_versioning" "upload_bucket_versioning" {
 
 resource "aws_s3_bucket" "static_bucket" { 
   bucket = var.bucket_name_static_website
-
+  force_destroy = true    #This is only for demonstration this SHOULD NOT be here
   tags = {
     Terraform = "true"
     Project   = "APIGatewayS3"

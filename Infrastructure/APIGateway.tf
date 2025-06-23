@@ -33,7 +33,7 @@ resource "aws_api_gateway_method" "put_object_method" {
   }
 }
 
-# 10. API Gateway Integration  PUT
+# API Gateway Integration  PUT
 resource "aws_api_gateway_integration" "s3_integration" {
   rest_api_id             = aws_api_gateway_rest_api.s3_upload_api.id
   resource_id             = aws_api_gateway_resource.filename_resource.id
@@ -71,7 +71,7 @@ resource "aws_api_gateway_integration" "options_integration" {
   }
 }
 
-# 13. CORS: OPTIONS Method Response
+# CORS: OPTIONS Method Response
 resource "aws_api_gateway_method_response" "options_200" {
   rest_api_id = aws_api_gateway_rest_api.s3_upload_api.id
   resource_id = aws_api_gateway_resource.filename_resource.id
@@ -89,7 +89,7 @@ resource "aws_api_gateway_method_response" "options_200" {
   }
 }
 
-# 14. CORS: OPTIONS Integration Response
+# CORS: OPTIONS Integration Response
 resource "aws_api_gateway_integration_response" "options_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.s3_upload_api.id
   resource_id = aws_api_gateway_resource.filename_resource.id
@@ -126,9 +126,9 @@ resource "aws_api_gateway_integration_response" "put_integration_response" {
   }
 }
 
-#Deployment and Stage (sorta)
+# --- Deployment and Stage (sorta)
 
-# 16. API Gateway Deployment
+# API Gateway Deployment
 resource "aws_api_gateway_deployment" "api_deployment" {
   rest_api_id = aws_api_gateway_rest_api.s3_upload_api.id
 
@@ -148,7 +148,7 @@ resource "aws_api_gateway_deployment" "api_deployment" {
   }
 }
 
-# 17. API Gateway Stage
+# API Gateway Stage
 resource "aws_api_gateway_stage" "api_stage" {
   deployment_id = aws_api_gateway_deployment.api_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.s3_upload_api.id
