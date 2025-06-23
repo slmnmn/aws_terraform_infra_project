@@ -24,7 +24,7 @@ jobs:
 
       - name: Going to directory
         id: go
-        run: cd /Infrastructure
+        run: cd ./Infrastructure
 
       - name: Terraform Format
         id: fmt
