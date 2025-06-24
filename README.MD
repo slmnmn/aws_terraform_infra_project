@@ -10,7 +10,7 @@ Ademas de esto, el terraform state para que se pueda guardar de alguna manera en
 
 ## Retos encontrados
 
-Si bien, el procesamiento de imagenes no es una mala idea, las librerias y dependencias utilizadas se ven bastante dificiles de poner en una lambda. No realmente por el espacio maximo de las 10GB (para eso usamos alpine linux y limpiamos al final), si no por algunos inconvenientes con los compiladores necesarios a la hora de hacer el docker.
+Si bien, el procesamiento de imagenes no es una muy dificl de implementar con un lambda contenedor, las librerias y dependencias utilizadas se ven bastante dificiles de ponerlas sin que tengan conflicto en el contenedor sin pesar mucho. El problema real no es el espacio maximo de las 10GB (para eso usamos alpine linux y limpiamos al final), si no por algunos inconvenientes con los compiladores necesarios a la hora de hacer el docker.
 
 Es por esto mismo que para la demostraciòn se utiliza como ejemplo una lambda .zip para poder demostrar lo que que se puede lograr.
 

@@ -1,6 +1,9 @@
 name: "Apply Infrastructure"
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   terraform:
