@@ -9,6 +9,11 @@ output "S3_static" {
 }
 
 output "S3_upload_bucket"{
-    description = "upload bucket name, use it to change your put link"
-    value = "${aws_s3_bucket.upload_bucket.id}"
+    description = "Upload bucket name, use it to change your put link"
+    value = aws_s3_bucket.upload_bucket.id
+}
+
+output "s3_static_website_link" {
+  description = "Show the static website link"
+  value = "http://${aws_s3_bucket.static_bucket.id}.s3-website-us-east-1.amazonaws.com"
 }

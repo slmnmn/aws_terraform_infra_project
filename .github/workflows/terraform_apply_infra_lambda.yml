@@ -1,4 +1,4 @@
-name: "Test no root apply"
+name: "Apply Infrastructure"
 
 on: workflow_dispatch
 

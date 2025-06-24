@@ -64,6 +64,7 @@ data "aws_iam_policy_document" "s3_static_website_policy_access" {
 resource "aws_s3_bucket_policy" "s3_static_website_policy_access" {
   bucket = aws_s3_bucket.static_bucket.id
   policy = data.aws_iam_policy_document.s3_static_website_policy_access.json #Reminder to put .json as policy attachign
+  depends_on = [aws_s3_bucket_public_access_block.static_bucket_access] #Importat because we need to create firs everything before this.
 }
 
 #Lambda role and policies (The policies AWS bring us, are costumer managed (microservices DYNAMO) so we need to create it )

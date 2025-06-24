@@ -1,4 +1,4 @@
-name: "Test destroy"
+name: "Destroy Infrastructure"
 
 on: workflow_dispatch
 
