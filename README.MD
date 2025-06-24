@@ -31,3 +31,5 @@ El pipeline de destroy ejecuta el destroy de toda la infraestructura de manera m
   force_destroy = true 
 ```
 * Se recomienda hacer una copia de los buckets antes que usar el terraform destroy action O borrar este parametro del codigo.
+
+[![Apply Infrastructure](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_apply_infra_lambda.yml/badge.svg)](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_apply_infra_lambda.yml)
