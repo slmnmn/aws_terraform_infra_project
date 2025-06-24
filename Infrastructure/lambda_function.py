@@ -50,7 +50,7 @@ def lambda_handler(evento, contexto):
 
             item_para_guardar = {
                 'id': id_item,          # La clave primaria de la tabla debe llamarse 'id'.
-                'placa': " ",
+                'placa': "RKW326",
                 'Objeto': clave_objeto,  # El nombre del archivo se guarda en el atributo 'placa'.
                 'hora': timestamp_texto,# La fecha y hora se guardan en el atributo 'hora'.
                 'linkplaca': enlace_s3  # El enlace directo al archivo S3.
