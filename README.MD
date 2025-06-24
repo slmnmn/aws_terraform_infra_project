@@ -1,5 +1,7 @@
 # Terraform despliegue
 
+## NOTA: TENGA EN CUENTA CAMBIAR LAS VARIABLES EN tf.vars A SU GUSTO 
+
 **Este despliegue consiste en la creaciòn de diferentes recursos de AWS tales como lo son s3, lambda, dynamoDB y una apigateway para recibir PUT request provenientes de una website estatica de un S3**
 
 S3 tiene un event trigger a una lambda que se encarga de parsear el evento para obtener el archivo subido y registrarlo en un dynamoDB con su hora, contenido y el lugar que se encuentra.
@@ -33,3 +35,5 @@ El pipeline de destroy ejecuta el destroy de toda la infraestructura de manera m
 * Se recomienda hacer una copia de los buckets antes que usar el terraform destroy action O borrar este parametro del codigo.
 
 [![Apply Infrastructure](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_apply_infra_lambda.yml/badge.svg)](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_apply_infra_lambda.yml)
+
+[![Destroy Infrastructure](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_destroy_infra_lambda.yml/badge.svg)](https://github.com/slmnmn/aws_terraform_infra_project/actions/workflows/terraform_destroy_infra_lambda.yml)
