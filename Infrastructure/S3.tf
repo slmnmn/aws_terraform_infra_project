@@ -47,5 +47,25 @@ resource "aws_s3_bucket_website_configuration" "static_bucket_website_configurat
   }
 }
 
+
+data "aws_iam_policy_document" "s3_static_website_policy_access" {
+  statement {
+    sid       = "PublicReadGetObject"
+    effect    = "Allow"
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.static_bucket.arn}/*"]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "s3_static_website_policy_access" {
+  bucket = aws_s3_bucket.static_bucket.id
+  policy = data.aws_iam_policy_document.s3_static_website_policy_access.json #Reminder to put .json as policy attachign
+  depends_on = [aws_s3_bucket_public_access_block.static_bucket_access] #Important because we need to create first everything before this.
+}
+
 # Para añadir la politica del bucket (Dado que es añadirle, mas no crearla)
-# Estas, estan en IAM. Politicas en el apartado de S3 policies

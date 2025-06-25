@@ -45,28 +45,6 @@ resource "aws_iam_role_policy_attachment" "s3_put_attachment" {
   policy_arn = aws_iam_policy.s3_put_object_policy.arn
 }
 
-#S3 BUCKET POLICY (we use data source since we are not creating a policy just kinda like attaching)
-
-data "aws_iam_policy_document" "s3_static_website_policy_access" {
-  statement {
-    sid       = "PublicReadGetObject"
-    effect    = "Allow"
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.static_bucket.arn}/*"]
-
-    principals {
-      type        = "*"
-      identifiers = ["*"]
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "s3_static_website_policy_access" {
-  bucket = aws_s3_bucket.static_bucket.id
-  policy = data.aws_iam_policy_document.s3_static_website_policy_access.json #Reminder to put .json as policy attachign
-  depends_on = [aws_s3_bucket_public_access_block.static_bucket_access] #Importat because we need to create firs everything before this.
-}
-
 #Lambda role and policies (The policies AWS bring us, are costumer managed (microservices DYNAMO) so we need to create it )
 
 resource "aws_iam_role" "lambda_exec_role" {
